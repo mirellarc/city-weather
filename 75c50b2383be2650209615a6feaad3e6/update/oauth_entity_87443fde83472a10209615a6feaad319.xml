@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="oauth_entity">
+    <oauth_entity action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <access_token_lifespan>1800</access_token_lifespan>
+        <active>true</active>
+        <auth_code_lifespan>60</auth_code_lifespan>
+        <auth_url/>
+        <certificate_url/>
+        <client_id>0db1069c634c4dee9cffead7983abda2</client_id>
+        <client_secret>﷞﷟﷒ab5477de83472a10209615a6feaad3d1﷬﷔1﷬﷭R_aZAwW6UL5U35xUZmU22A==sWBUMwUax80ZuvjnmdJ5U4fgTYOuMHpStJM=﷮﷯</client_secret>
+        <client_type/>
+        <client_uuid>47443fde83472a10209615a6feaad319</client_uuid>
+        <code_challenge_method>S256</code_challenge_method>
+        <comments/>
+        <default_grant_type>password</default_grant_type>
+        <extend_refresh_token_expiry>false</extend_refresh_token_expiry>
+        <id_token_lifespan>86400</id_token_lifespan>
+        <jwt_provider/>
+        <login_url/>
+        <logo_url/>
+        <message_signature_lifespan>60</message_signature_lifespan>
+        <mobile_client>false</mobile_client>
+        <name>CityWeatherInfoAPI</name>
+        <oauth_api_script/>
+        <protocol_name/>
+        <public_client>false</public_client>
+        <redirect_url/>
+        <refresh_token_lifespan>8640000</refresh_token_lifespan>
+        <refresh_token_url/>
+        <restricted_binding>false</restricted_binding>
+        <revoke_token_url/>
+        <salt/>
+        <send_client_credentials_as>request_body_parameter</send_client_credentials_as>
+        <skip_authorize>false</skip_authorize>
+        <sys_class_name>oauth_entity</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-01 17:32:21</sys_created_on>
+        <sys_id>87443fde83472a10209615a6feaad319</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CityWeatherInfoAPI</sys_name>
+        <sys_package display_value="CityWeatherInfo" source="x_1117051_cityweat">75c50b2383be2650209615a6feaad3e6</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CityWeatherInfo">75c50b2383be2650209615a6feaad3e6</sys_scope>
+        <sys_update_name>oauth_entity_87443fde83472a10209615a6feaad319</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-01 17:32:21</sys_updated_on>
+        <token_url/>
+        <type>client</type>
+        <use_mutual_auth>false</use_mutual_auth>
+        <user/>
+    </oauth_entity>
+</record_update>
