@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_api_access_scope">
+    <sys_api_access_scope action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <api>CityWeatherInfo</api>
+        <api_path>x_1117051_cityweat/cityweatherinfo</api_path>
+        <api_resource/>
+        <apply_all_methods>false</apply_all_methods>
+        <apply_all_resources>true</apply_all_resources>
+        <apply_all_versions>true</apply_all_versions>
+        <auth_scope display_value="CityWeather_read">214eb3de83872a10209615a6feaad315</auth_scope>
+        <http_method>GET</http_method>
+        <name>CityWeather_read</name>
+        <sys_class_name>sys_api_access_scope</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-01 18:16:48</sys_created_on>
+        <sys_id>e80efb9e83872a10209615a6feaad379</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CityWeather_read</sys_name>
+        <sys_package display_value="CityWeatherInfo" source="x_1117051_cityweat">75c50b2383be2650209615a6feaad3e6</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CityWeatherInfo">75c50b2383be2650209615a6feaad3e6</sys_scope>
+        <sys_update_name>sys_api_access_scope_e80efb9e83872a10209615a6feaad379</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-01 18:16:48</sys_updated_on>
+        <version/>
+    </sys_api_access_scope>
+</record_update>
