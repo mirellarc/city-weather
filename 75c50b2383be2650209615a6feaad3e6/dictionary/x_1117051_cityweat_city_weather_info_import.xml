@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="ccae036f83be2650209615a6feaad3f0" extends="sys_import_set_row" label="Mackaroo CityWeatherInfo" max_length="40" name="x_1117051_cityweat_city_weather_info_import" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Temperature" label="Temperature" max_length="40" name="u_temperature" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Pressure" label="Pressure" max_length="40" name="u_pressure" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=City" label="City" max_length="40" name="u_city" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=ip_address" label="ip_address" max_length="40" name="u_ip_address" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Humidity" label="Humidity" max_length="40" name="u_humidity" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Condition" label="Condition" max_length="40" name="u_condition" type="string"/>
+    </element>
+</database>

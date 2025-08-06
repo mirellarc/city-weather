@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cd160f5e83432a10209615a6feaad370</enforce_acl>
+        <http_method>PATCH</http_method>
+        <name>UpdateCityWeatherInfo (v2)</name>
+        <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    try {
+
+        // extract the city name from the patch param
+        var cityName = request.pathParams.city;
+        if (!cityName) {
+            response.setStatus(400);
+            response.setBody({
+                error: "City parameter is required in the path"
+            });
+            return;
+        }
+
+        // Parse the request body for the fields to update
+        var requestBody = request.body.data;
+        if (!requestBody) {
+            response.setStatus(400);
+            response.setBody({
+                error: "Request body is required. Please provide which field and values to update"
+            });
+            return;
+        }
+
+        //Initialize the GlideRecord for CityWeather table
+        var grWeather = new GlideRecord('x_1117051_cityweat_cityweatherinfo');
+        grWeather.addQuery('city', cityName);
+        grWeather.query();
+
+        // check if exist
+        if (!grWeather.next()) {
+            response.setStatus(404);
+            response.setBody({
+                error: "City not found: " + cityName
+            });
+            return;
+        }
+
+        //update the record
+        if (requestBody.temperature) {
+            grWeather.setValue('temperature', requestBody.temperature);
+        }
+
+        if (requestBody.condition) {
+            grWeather.setValue('condition', requestBody.condition);
+        }
+
+        if (requestBody.humidity) {
+            grWeather.setValue('humidity', requestBody.humidity);
+        }
+
+        if (requestBody.pressure) {
+            grWeather.setValue('pressure', requestBody.pressure);
+        }
+
+        grWeather.update();
+
+		// response object
+
+		var result = {
+			sys_id: grWeather.getValue('sys_id'),
+			number: grWeather.getValue('number'),
+			city: grWeather.getValue('city'),
+			humidity: grWeather.getValue('humidity'),
+			temperature: grWeather.getValue('temperature'),
+			condition: grWeather.getValue('condition'),
+			pressure: grWeather.getValue('pressure'),
+			link: {
+				self: 'https://dev322884.service-now.com/now/nav/ui/classic/params/target/x_1117051_cityweat_cityweatherinfo.do%3Fsys_id=' + grWeather.getUniqueValue()
+			}
+		};
+
+		response.setStatus(200);
+		response.setBody(result);
+
+
+    } catch (error) {
+        response.setStatus(500);
+        response.setBody({
+            error: 'An error occured while processing your request.',
+            details: error.details
+        });
+    }
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_1117051_cityweat/v2/cityweatherinfo/weather/{city}</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/weather/{city}</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-29 18:36:48</sys_created_on>
+        <sys_id>ea56e0258343e210209615a6feaad339</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>UpdateCityWeatherInfo (v2)</sys_name>
+        <sys_package display_value="CityWeatherInfo" source="x_1117051_cityweat">75c50b2383be2650209615a6feaad3e6</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CityWeatherInfo">75c50b2383be2650209615a6feaad3e6</sys_scope>
+        <sys_update_name>sys_ws_operation_ea56e0258343e210209615a6feaad339</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-01 14:26:36</sys_updated_on>
+        <web_service_definition display_value="CityWeatherInfo">82bb60c4834ba650209615a6feaad339</web_service_definition>
+        <web_service_version display_value="v2">6a566ce18343e210209615a6feaad346</web_service_version>
+    </sys_ws_operation>
+</record_update>

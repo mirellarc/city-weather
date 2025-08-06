@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="8a8787e383be2650209615a6feaad302" label="CityWeatherInfo" max_length="40" name="x_1117051_cityweat_cityweatherinfo" type="collection">
+        <element attributes="edge_encryption_enabled=true" display="true" label="City" max_length="60" name="city" type="string"/>
+        <element label="Pressure" max_length="15" name="pressure" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Condition" max_length="60" name="condition" type="string"/>
+        <element label="Temperature" max_length="15" name="temperature" type="decimal"/>
+        <element label="Humidity" max_length="15" name="humidity" type="decimal"/>
+    </element>
+</database>

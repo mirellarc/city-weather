@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_1117051_cityweat_CityWeatherInfo Documentation.do</endpoint>
+        <html><![CDATA[<j:jelly xmlns:j="jelly:core" xmlns:g="glide">
+    <!--
+UI PAGE: CityWeatherInfo Documentation
+PURPOSE:
+This UI Page summarizes all the configurations for our CityWeatherInfo app:
+- Roles &amp; Groups
+- Table &amp; Fields
+- Scripted REST API Endpoints
+- Security (ACLs, OAuth, IP Policies)
+- Business Rule &amp; Scheduled Job
+- Mockaroo &amp; Testing Tools
+- Dashboards
+-->
+    <html>
+
+    <head>
+        <title>CityWeatherInfo - Full Documentation</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 15px;
+                line-height: 1.4em;
+            }
+
+            h1,
+            h2,
+            h3 {
+                color: #03396c;
+            }
+
+            h1 {
+                margin-top: 0;
+            }
+
+            ul {
+                margin-left: 1.5em;
+            }
+
+            code {
+                background-color: #eee;
+                padding: 2px 4px;
+                font-family: Consolas, monospace;
+            }
+
+            hr {
+                margin: 25px 0;
+            }
+
+            .section {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>CityWeatherInfo Application - Documentation</h1>
+        <p>
+            Welcome! This documentation describes
+            the$[SP]<strong>CityWeatherInfo</strong>$[SP]application you built in ServiceNow.
+            It covers$[SP]<em>Roles &amp; Groups, Table &amp; Fields, Scripted REST API
+                Endpoints, Security (ACLs, OAuth, IP Policies),
+                Business Rules, Scheduled Jobs, Dashboards</em>, and how
+            to$[SP]<em>test</em>$[SP]them.
+        </p>
+        <hr class="section" />
+        <div class="section">
+            <h2>1. Introduction &amp; Purpose</h2>
+            <p>
+                The$[SP]<strong>CityWeatherInfo</strong>$[SP]application manages weather data for
+                various cities.
+                We allow inbound REST calls to create, read, update, and delete weather records.
+                Additionally, we fetch external
+                weather data from the$[SP]<em>OpenWeather</em>$[SP]public API, ensuring each
+                city's information is automatically
+                updated (via Business Rule or a Scheduled Job).
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>2. App Overview &amp; Roles</h2>
+            <p><strong>Scoped Application
+                    Name:</strong>$[SP]<code>CityWeatherInfo</code>$[SP]</p>
+            <p><strong>Application Scope:</strong>$[SP]<code>x_793388_cityweath</code></p>
+            <ul>
+                <li><strong>Roles Created:</strong></li>
+                <ul>
+                    <li><strong>Weather Administrator</strong>$[SP]: Full control over the app (admin
+                        responsibilities).</li>
+                    <li><strong>Weather User</strong>$[SP]: End users who can view and use core
+                        functionalities.</li>
+                    <li><strong>Weather Integration</strong>$[SP]: For integration users or automated
+                        processes that call the API.</li>
+                </ul>
+                <li><strong>Groups &amp; Users:</strong>
+                    <ul>
+                        <li>Three groups corresponding to the above roles.</li>
+                        <li>Three users:$[SP]<code>weather_admin, weather_user,
+                                weather_integration</code>.</li>
+                        <li>The integration user has$[SP]<em>Allow web services</em>$[SP]enabled,
+                            preventing UI login.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>3. Table &amp; Fields</h2>
+            <p>
+                <strong>Table
+                    Name:</strong>$[SP]<code>x_793388_cityweath_cityweatherinfo</code><br />
+                Used to store city weather data. Notable fields:
+            </p>
+            <ul>
+                <li><code>city</code>$[SP](String)$[SP]- The city’s name (required).</li>
+                <li><code>temperature</code>$[SP](Integer)$[SP]- Temperature in Celsius (or user’s
+                    chosen unit).</li>
+                <li><code>condition</code>$[SP](String)$[SP]- Describes weather (e.g., “Cloudy,”
+                    “Rainy,” etc.).</li>
+                <li><code>humidity</code>$[SP](Integer)$[SP]- Represents humidity percentage.</li>
+                <li><code>pressure</code>$[SP](Integer)$[SP]- Atmospheric pressure in hPa.</li>
+                <li><code>number</code>$[SP](Auto-generated unique ID).</li>
+            </ul>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>4. Scripted REST API &amp; Endpoints</h2>
+            <p>
+                <strong>Scripted REST Service:</strong>$[SP]<code>CityWeatherInfo</code><br />
+                <strong>API Namespace:</strong>$[SP]<code>x_793388_cityweath</code><br />
+                <strong>Base
+                    Path:</strong>$[SP]<code>/api/x_793388_cityweath/cityweatherinfo</code>
+            </p>
+            <ul>
+                <li><strong>Active Versions:</strong>$[SP](v1, v2, v3). We
+                    eventually$[SP]<em>deactivated</em>$[SP]v1 &amp; v2$[SP]for security reasons.</li>
+                <li><strong>Resources:</strong>
+                    <ul>
+                        <li><code>GET /weather/{city}</code>$[SP]- Retrieve single city’s data.</li>
+                        <li><code>GET /weather</code>$[SP]- Retrieve multiple cities (optional query params
+                            like$[SP]city, condition, humidity, etc.).</li>
+                        <li><code>POST /weather</code>$[SP]- Create new city weather record.</li>
+                        <li><code>PATCH /weather/{city}</code>$[SP]- Update certain fields of a city’s
+                            weather.</li>
+                        <li><code>DELETE /weather/{city}</code>$[SP]- Remove a city’s record from the
+                            table.</li>
+                    </ul>
+                </li>
+                <li><strong>Versioning:</strong>
+                    <ul>
+                        <li>We enabled versioning so older clients can keep using v1, while new enhancements
+                            go to v2 or v3.</li>
+                        <li>Eventually,$[SP]we$[SP]deactivated v1 &amp; v2$[SP]to close security gaps.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <em>See the 'Resources' related list on the Scripted REST Service record for full
+                    details.</em>
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>5. Security Configuration</h2>
+            <p>
+                Our security approach has multiple layers:
+            </p>
+            <ol>
+                <li>
+                    <strong>Table Settings:</strong>
+                    <ul>
+                        <li>“Allow access to this table via web services” is not needed because we use Scripted
+                            REST, not the Table API.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>ACLs (Access Controls):</strong>
+                    <ul>
+                        <li>Default
+                            ACL:$[SP]<code>scripted_rest_external_default</code>$[SP]allowed$[SP]<code>snc_inte
+                                rnal</code>.</li>
+                        <li>We replaced it with custom ACLs requiring
+                            roles$[SP]<code>cityweather_api</code>$[SP]and$[SP]<code>cityweather_resource</code>.</li>
+                        <li>This ensures only authorized users can call or see the data (e.g., the integration user
+                            in the Weather Integration group).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Table-Level ACL Enforcement (GlideRecordSecure):</strong>
+                    <ul>
+                        <li>We
+                            replaced$[SP]<code>GlideRecord</code>$[SP]with$[SP]<code>GlideRecordSecure</code>$[SP]in scripts to respect table ACLs at the code level.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>OAuth Authentication:</strong>
+                    <ul>
+                        <li>We created an OAuth API endpoint for external clients$[SP]<em>(System OAuth →
+                                Application Registry)</em>.</li>
+                        <li>We restricted the API by setting$[SP]<em>Enforce OAuth = true</em>$[SP]in the
+                            Scripted REST API or using$[SP]<em>API Access Policies</em>.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>API Access Policies (Optional IP Filters):</strong>
+                    <ul>
+                        <li>We added an$[SP]<em>API Access Policy</em>$[SP]for version 3, requiring
+                            the$[SP]<code>OAuth token</code>$[SP]authentication profile and filtering by IP
+                            addresses if needed.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>OAuth Scopes:</strong>
+                    <ul>
+                        <li>Scope$[SP]<code>CityWeather_read</code>$[SP]for GET
+                            requests,$[SP]<code>CityWeather_delete</code>$[SP]for DELETE requests.</li>
+                        <li>This ensures a token with$[SP]<code>CityWeather_read</code>$[SP]can’t delete
+                            records, etc.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>6. Business Rule for Auto-Updating Weather</h2>
+            <p>
+                We created an$[SP]<em>async</em>$[SP]Business Rule named$[SP]<strong>Populate
+                    Weather Data</strong>$[SP]on the
+                $[SP]<code>CityWeatherInfo</code>$[SP]table. Whenever a user inserts or updates a
+                record:
+            </p>
+            <ol>
+                <li>The rule calls our$[SP]<code>OpenWeather</code>$[SP]REST Message
+                    ($[SP]<em>GetCurrentWeather</em>).</li>
+                <li>It passes
+                    the$[SP]<code>city</code>$[SP]name,$[SP]<code>units=metric</code>$[SP], and the
+                    secure$[SP]<code>API key</code>.</li>
+                <li>It logs the response and updates$[SP]<code>temperature, condition, humidity,
+                        pressure</code>$[SP]in the record.</li>
+                <li>Runs asynchronously so users aren’t blocked while waiting for the external call.</li>
+            </ol>
+            <p>
+                <strong>Key Points:</strong><br />
+                - Leverages$[SP]<em>Preview Script Usage</em>$[SP]snippet to build the code.<br />
+                - Retrieves the API key from system
+                property$[SP]<code>x_793388_cityweath.weather_api_key</code>.<br />
+                - Logs each step via$[SP]<code>gs.info</code>$[SP]and$[SP]<code>gs.warn</code>.
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>7. Scheduled Job for Batch Updates</h2>
+            <p>
+                To keep existing city records up to date, we added a$[SP]<strong>Scheduled
+                    Job</strong>$[SP]
+                that runs every 6 hours. The script:
+            </p>
+            <ol>
+                <li>Queries all rows in$[SP]<code>CityWeatherInfo</code>.</li>
+                <li>For each city,$[SP]calls$[SP]<em>OpenWeather →
+                        GetCurrentWeather</em>$[SP]similarly.</li>
+                <li>Updates$[SP]<code>temperature, condition, humidity, pressure</code>$[SP]in
+                    bulk.</li>
+                <li>Ensures ongoing freshness of data, even if nobody edits the record manually.</li>
+            </ol>
+            <p>
+                <strong>Performance Note:</strong>$[SP]If you have thousands of records, consider
+                breaking it into smaller chunks or staggering updates.
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>8. Dashboards and Visualization</h2>
+            <p>
+                We created a$[SP]simple Dashboard to display city weather data, consisting of:
+            </p>
+            <ul>
+                <li>A$[SP]<strong>List Report</strong>$[SP]showing$[SP]<code>City, Condition,
+                        Temperature, Humidity, Pressure</code>.</li>
+                <li>An$[SP]optional$[SP]<strong>Bar Chart</strong>$[SP]comparing city
+                    temperatures.</li>
+            </ul>
+            <p>
+                Dashboards in ServiceNow typically refresh data upon page reload or after a set interval.
+                If you want truly streaming, real-time data, consider a$[SP]<em>Now Experience
+                    UI</em>$[SP]or a custom widget.
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>9. Generating Demo Data with Mockaroo</h2>
+            <p>
+                To populate test data, we used$[SP]<strong>Mockaroo</strong>$[SP]. Steps included:
+            </p>
+            <ol>
+                <li>Defining a schema in mockaroo.com
+                    with$[SP]<code>City</code>,$[SP]<code>Temperature</code>, etc.</li>
+                <li>Exporting as CSV.</li>
+                <li>Using$[SP]<em>System Import Sets</em>$[SP]+ a$[SP]<em>Transform
+                        Map</em>$[SP]to load it into$[SP]<code>CityWeatherInfo</code>.</li>
+            </ol>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>10. Testing &amp; Tools (REST API Explorer, Postman)</h2>
+            <p>
+                <strong>REST API Explorer</strong>$[SP]is built into ServiceNow—great for quick checks
+                using your current user session.
+                <strong>Postman</strong>$[SP]is an external tool allowing more advanced testing
+                (different creds, environments, etc.).
+                We used$[SP]both to confirm each resource$[SP](GET, POST, PATCH, DELETE)$[SP]works
+                as expected.
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>11. Summary &amp; Next Steps</h2>
+            <p>
+                The$[SP]<strong>CityWeatherInfo</strong>$[SP]application now provides:
+            </p>
+            <ul>
+                <li>A$[SP]secure$[SP]<em>Scripted REST API</em>$[SP]with CRUD endpoints,
+                    versioning, and advanced filtering.</li>
+                <li>Integrated$[SP]<em>ACLs</em>$[SP],$[SP]<em>OAuth</em>$[SP],$[SP]<em>IP
+                        restrictions</em>$[SP], and$[SP]<em>OAuth Scopes</em>$[SP]for security.</li>
+                <li>A$[SP]<em>Business Rule</em>$[SP]for automatic updates on record
+                    insertion/update.</li>
+                <li>A$[SP]<em>Scheduled Job</em>$[SP]for periodic refresh of all city records.</li>
+                <li>Optional$[SP]<em>Dashboard</em>$[SP]to visualize weather data in near realtime.</li>
+            </ul>
+            <p>
+                You can continue enhancing the app by adding performance analytics, refining ACLs, or
+                building custom UI experiences
+                (e.g., Service Portal).
+            </p>
+        </div>
+        <hr class="section" />
+        <div class="section">
+            <h2>Questions or Feedback?</h2>
+            <p>
+                Feel free to reach out or leave comments. We hope
+                this$[SP]<em>CityWeatherInfo</em>$[SP]application demonstration helps
+                you create robust, secure, and user-friendly integrations in ServiceNow.
+            </p>
+        </div>
+    </body>
+
+    </html>
+</j:jelly>]]></html>
+        <name>CityWeatherInfo Documentation</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-04 18:19:06</sys_created_on>
+        <sys_id>128b9357838f6e10209615a6feaad3ca</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CityWeatherInfo Documentation</sys_name>
+        <sys_package display_value="CityWeatherInfo" source="x_1117051_cityweat">75c50b2383be2650209615a6feaad3e6</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CityWeatherInfo">75c50b2383be2650209615a6feaad3e6</sys_scope>
+        <sys_update_name>sys_ui_page_128b9357838f6e10209615a6feaad3ca</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-04 18:19:06</sys_updated_on>
+    </sys_ui_page>
+</record_update>
